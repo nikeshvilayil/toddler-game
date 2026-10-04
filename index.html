@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Who's Missing? - Toddler Brain Game</title>
+  <title>Toddler Brain Games 🎈</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
@@ -12,9 +12,8 @@
       --bg-gradient: linear-gradient(135deg, #FDEBF7 0%, #E0F2FE 50%, #ECFCCB 100%);
       --card-bg: #FFFFFF;
       --primary: #4F46E5;
-      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-      --card-shadow: 0 12px 0 #E2E8F0, 0 16px 20px rgba(0, 0, 0, 0.08);
-      --card-active: 0 4px 0 #CBD5E1, 0 6px 10px rgba(0, 0, 0, 0.08);
+      --card-shadow: 0 10px 0 #CBD5E1, 0 14px 18px rgba(0, 0, 0, 0.08);
+      --card-active: 0 3px 0 #94A3B8, 0 6px 10px rgba(0, 0, 0, 0.08);
     }
     * {
       box-sizing: border-box;
@@ -32,7 +31,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 1.2rem;
+      padding: 1rem;
       color: #1E293B;
     }
     #startOverlay {
@@ -73,44 +72,77 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 0.8rem;
     }
-    .header-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #312E81;
-    }
-    .replay-btn {
+    .header-btn {
       background: #FFFFFF;
       border: 3px solid #E0E7FF;
       color: #4338CA;
       font-family: inherit;
       font-weight: 700;
       font-size: 1.1rem;
-      padding: 0.6rem 1.2rem;
+      padding: 0.5rem 1rem;
       border-radius: 20px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
       box-shadow: 0 4px 0 #C7D2FE;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
     }
-    .replay-btn:active {
+    .header-btn:active {
       transform: translateY(2px);
       box-shadow: 0 2px 0 #C7D2FE;
     }
     main {
       width: 100%;
       max-width: 680px;
+      flex: 1;
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      margin: 0.8rem 0;
+    }
+    /* Menu Styles */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.2rem;
-      margin: auto 0;
+      width: 100%;
+    }
+    .menu-card {
+      background: white;
+      border-radius: 24px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: var(--card-shadow);
+      border: 3px solid #F1F5F9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      transition: transform 0.12s;
+    }
+    .menu-card:active {
+      transform: translateY(6px);
+      box-shadow: var(--card-active);
+    }
+    .menu-icon { font-size: 3.5rem; }
+    .menu-title { font-size: 1.4rem; font-weight: 700; color: #1E293B; }
+    .menu-desc { font-size: 0.95rem; color: #64748B; font-weight: 500; }
+
+    /* Common Game Container */
+    .game-screen {
+      display: none;
+      flex-direction: column;
+      gap: 1.2rem;
+      width: 100%;
     }
     .row-card {
       background: var(--card-bg);
       border-radius: 28px;
-      padding: 1.3rem 1.1rem;
-      box-shadow: var(--shadow);
+      padding: 1.2rem 1rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
       border: 3px solid #F1F5F9;
     }
     .row-label {
@@ -125,14 +157,14 @@
     .badge {
       background: #EEF2FF;
       color: #4F46E5;
-      padding: 0.25rem 0.9rem;
+      padding: 0.25rem 0.8rem;
       border-radius: 9999px;
-      font-size: 1rem;
+      font-size: 0.95rem;
     }
     .items-container {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+      gap: 0.9rem;
     }
     .toddler-card {
       aspect-ratio: 1;
@@ -145,7 +177,7 @@
       font-size: 3.6rem;
       cursor: pointer;
       box-shadow: var(--card-shadow);
-      transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.12s;
+      transition: transform 0.12s, box-shadow 0.12s;
     }
     .toddler-card.clickable:active {
       transform: translateY(8px);
@@ -161,6 +193,21 @@
     @keyframes pulse {
       0%, 100% { transform: scale(1); border-color: #CBD5E1; }
       50% { transform: scale(0.96); border-color: #818CF8; color: #6366F1; }
+    }
+    .shadow-item {
+      filter: brightness(0);
+      opacity: 0.85;
+      transition: filter 0.4s ease, opacity 0.4s ease;
+    }
+    .status-bar {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #334155;
+      text-align: center;
     }
     .correct-pop {
       animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
@@ -184,16 +231,32 @@
       60% { transform: translateX(-6px) rotate(-2deg); }
       80% { transform: translateX(6px) rotate(2deg); }
     }
-    .status-bar {
-      min-height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.35rem;
-      font-weight: 600;
-      color: #334155;
-      text-align: center;
+    /* Color Baskets */
+    .color-baskets {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
     }
+    .basket-btn {
+      padding: 1.2rem 0.5rem;
+      border-radius: 20px;
+      border: 3px solid transparent;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .basket-btn:active { transform: translateY(6px); }
+    .bg-red { background: #EF4444; border-color: #DC2626; }
+    .bg-yellow { background: #F59E0B; border-color: #D97706; }
+    .bg-green { background: #10B981; border-color: #059669; }
+    .bg-blue { background: #3B82F6; border-color: #2563EB; }
+
     #confettiCanvas {
       position: fixed;
       inset: 0;
@@ -203,50 +266,103 @@
   </style>
 </head>
 <body>
+  <!-- Overlay for Audio Autoplay unlock -->
   <div id="startOverlay">
-    <h1 style="font-size: 2.6rem;">Who's Missing? 🎈</h1>
+    <h1 style="font-size: 2.6rem;">Toddler Brain Games 🎈</h1>
     <p style="font-size: 1.3rem; max-width: 320px;">Tap below to turn on audio and play!</p>
-    <button class="play-btn" onclick="startGame()">Let's Play! ▶️</button>
+    <button class="play-btn" onclick="unlockAudio()">Let's Play! ▶️</button>
   </div>
 
   <canvas id="confettiCanvas"></canvas>
 
   <header>
-    <div class="header-title">Who's Missing? 🤔</div>
-    <button class="replay-btn" onclick="playVoicePrompt()">
-      <span>🗣️</span> Listen
-    </button>
+    <button class="header-btn" id="homeBtn" onclick="goHome()" style="display: none;">🏠 Games</button>
+    <h2 id="screenTitle" style="font-size: 1.5rem; color: #312E81;">Pick a Game! 🎈</h2>
+    <button class="header-btn" id="listenBtn" onclick="repeatVoicePrompt()" style="display: none;">🗣️ Listen</button>
   </header>
 
   <main>
-    <section class="row-card">
-      <div class="row-label">
-        <span>Top Row</span>
-        <span class="badge">Tap Here 👆</span>
+    <!-- MAIN MENU -->
+    <div id="menuView" class="menu-grid">
+      <div class="menu-card" onclick="startMissingGame()">
+        <span class="menu-icon">❓</span>
+        <span class="menu-title">Who's Missing?</span>
+        <span class="menu-desc">Compare rows & spot the missing friend!</span>
       </div>
-      <div class="items-container" id="row1"></div>
-    </section>
-
-    <div class="status-bar" id="statusMessage">
-      Look at the top row! Who is missing below?
+      <div class="menu-card" onclick="startShadowGame()">
+        <span class="menu-icon">🐾</span>
+        <span class="menu-title">Animal Shadows</span>
+        <span class="menu-desc">Match the cute animal to its shadow!</span>
+      </div>
+      <div class="menu-card" onclick="startColorGame()">
+        <span class="menu-icon">🎨</span>
+        <span class="menu-title">Color Sorter</span>
+        <span class="menu-desc">Put fruits & items into matching baskets!</span>
+      </div>
+      <div class="menu-card" onclick="startPeekabooGame()">
+        <span class="menu-icon">🙈</span>
+        <span class="menu-title">Who Hid Away?</span>
+        <span class="menu-desc">Working memory tray game!</span>
+      </div>
     </div>
 
-    <section class="row-card">
-      <div class="row-label">
-        <span>Bottom Row</span>
+    <!-- GAME 1: WHO'S MISSING (ROW COMPARISON) -->
+    <div id="gameMissing" class="game-screen">
+      <section class="row-card">
+        <div class="row-label"><span>Top Row</span><span class="badge">Tap Here 👆</span></div>
+        <div class="items-container" id="missingRow1"></div>
+      </section>
+      <div class="status-bar" id="missingStatus">Look at the top row! Who is missing below?</div>
+      <section class="row-card">
+        <div class="row-label"><span>Bottom Row</span></div>
+        <div class="items-container" id="missingRow2"></div>
+      </section>
+    </div>
+
+    <!-- GAME 2: ANIMAL SHADOWS -->
+    <div id="gameShadow" class="game-screen">
+      <section class="row-card" style="text-align: center;">
+        <div class="row-label"><span>Mystery Animal Shadow</span></div>
+        <div id="shadowTarget" class="toddler-card shadow-item" style="width: 140px; height: 140px; margin: 0 auto; font-size: 5rem;">🐶</div>
+      </section>
+      <div class="status-bar" id="shadowStatus">Whose shadow is this? Find the animal!</div>
+      <section class="row-card">
+        <div class="row-label"><span>Choose the Animal</span><span class="badge">Tap Below 👆</span></div>
+        <div class="items-container" id="shadowOptions"></div>
+      </section>
+    </div>
+
+    <!-- GAME 3: COLOR SORTER -->
+    <div id="gameColor" class="game-screen">
+      <section class="row-card" style="text-align: center;">
+        <div class="row-label"><span>Item to Sort</span></div>
+        <div id="colorItemCard" class="toddler-card" style="width: 130px; height: 130px; margin: 0 auto; font-size: 4.8rem;">🍎</div>
+      </section>
+      <div class="status-bar" id="colorStatus">What color is this item? Pick its basket!</div>
+      <div class="color-baskets">
+        <button class="basket-btn bg-red" onclick="handleColorTap('red')"><span>🍎</span>Red</button>
+        <button class="basket-btn bg-yellow" onclick="handleColorTap('yellow')"><span>🍌</span>Yellow</button>
+        <button class="basket-btn bg-green" onclick="handleColorTap('green')"><span>🍏</span>Green</button>
+        <button class="basket-btn bg-blue" onclick="handleColorTap('blue')"><span>🫐</span>Blue</button>
       </div>
-      <div class="items-container" id="row2"></div>
-    </section>
+    </div>
+
+    <!-- GAME 4: WHO HID AWAY (PEEK-A-BOO TRAY) -->
+    <div id="gamePeekaboo" class="game-screen">
+      <section class="row-card">
+        <div class="row-label"><span>Memory Tray</span><span id="peekTimerBadge" class="badge">Remember them! ⏳</span></div>
+        <div class="items-container" id="peekTray"></div>
+      </section>
+      <div class="status-bar" id="peekStatus">Study the items carefully!</div>
+      <section class="row-card" id="peekChoicesSection" style="display: none;">
+        <div class="row-label"><span>Who disappeared?</span><span class="badge">Tap Here 👆</span></div>
+        <div class="items-container" id="peekChoices"></div>
+      </section>
+    </div>
   </main>
 
   <script>
-    const audioFiles = {
-      welcome: new Audio('audio/welcome.mp3'),
-      prompt: new Audio('audio/prompt.mp3'),
-      correct: new Audio('audio/correct.mp3'),
-      wrong: new Audio('audio/wrong.mp3')
-    };
-
+    // --- Audio Engine ---
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     function playChime(isSuccess) {
       if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -268,92 +384,106 @@
       osc.stop(audioCtx.currentTime + 0.35);
     }
 
-    function playSound(key, onFinished) {
-      const audio = audioFiles[key];
-      if (!audio) {
-        if (onFinished) setTimeout(onFinished, 1500);
-        return;
-      }
+    // Built-in Kid Friendly Speech Synthesis
+    function speakText(text, onComplete) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.pitch = 1.25;
+      utterance.rate = 0.88;
+      
+      const voices = window.speechSynthesis.getVoices();
+      const natural = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Samantha') || v.name.includes('Natural') || v.name.includes('Google')));
+      if (natural) utterance.voice = natural;
 
-      audio.currentTime = 0;
-      const playPromise = audio.play();
-
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            if (onFinished) {
-              audio.onended = () => setTimeout(onFinished, 2000);
-            }
-          })
-          .catch(() => {
-            playChime(key === 'correct');
-            if (onFinished) setTimeout(onFinished, 2000);
-          });
+      if (onComplete) {
+        utterance.onend = () => setTimeout(onComplete, 1800);
       }
+      window.speechSynthesis.speak(utterance);
     }
 
-    const EMOJIS = [
-      '🐶','🐱','🦁','🐰','🐻','🐼','🐸','🐵',
-      '🍎','🍌','🍓','🍇','🍉','🥕','🌽','🍦',
-      '🚗','🚌','🚒','🚑','✈️','🚀','🚂','🚲',
-      '⚽','🎈','⭐','🌸','🌞','🎁','🥁','🔔'
-    ];
-
-    let currentItems = [];
-    let missingItem = null;
-    let mysterySlotElement = null;
-    let isLocked = false;
-
-    function startGame() {
+    function unlockAudio() {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
       document.getElementById('startOverlay').style.display = 'none';
-      playSound('welcome', () => newRound());
-      setTimeout(() => {
-        if (!currentItems.length) newRound();
-      }, 600);
+      speakText("Welcome! Pick a game to play!");
     }
 
-    function playVoicePrompt() {
-      if (isLocked) return;
-      playSound('prompt');
+    // --- Navigation ---
+    let currentGame = null;
+    let isLocked = false;
+    let currentVoicePrompt = "";
+
+    function showScreen(screenId) {
+      document.getElementById('menuView').style.display = 'none';
+      document.getElementById('gameMissing').style.display = 'none';
+      document.getElementById('gameShadow').style.display = 'none';
+      document.getElementById('gameColor').style.display = 'none';
+      document.getElementById('gamePeekaboo').style.display = 'none';
+      document.getElementById('homeBtn').style.display = 'inline-flex';
+      document.getElementById('listenBtn').style.display = 'inline-flex';
+      document.getElementById(screenId).style.display = 'flex';
     }
 
-    function newRound() {
+    function goHome() {
+      window.speechSynthesis.cancel();
       isLocked = false;
-      document.getElementById('statusMessage').textContent = 'Look at the top row! Who is missing below?';
+      currentGame = null;
+      document.getElementById('menuView').style.display = 'grid';
+      document.getElementById('gameMissing').style.display = 'none';
+      document.getElementById('gameShadow').style.display = 'none';
+      document.getElementById('gameColor').style.display = 'none';
+      document.getElementById('gamePeekaboo').style.display = 'none';
+      document.getElementById('homeBtn').style.display = 'none';
+      document.getElementById('listenBtn').style.display = 'none';
+      document.getElementById('screenTitle').textContent = "Pick a Game! 🎈";
+    }
+
+    function repeatVoicePrompt() {
+      if (!isLocked && currentVoicePrompt) speakText(currentVoicePrompt);
+    }
+
+    // --- GAME 1: WHO'S MISSING ---
+    const EMOJIS = ['🐶','🐱','🦁','🐰','🐻','🐼','🍎','🍌','🍓','🍇','🚗','🚌','🚒','🚑','✈️','🚀','⚽','🎈','⭐','🌸','🌞','🍦'];
+    let missingRoundItems = [], targetMissing = null, mysterySlotEl = null;
+
+    function startMissingGame() {
+      currentGame = 'missing';
+      document.getElementById('screenTitle').textContent = "Who's Missing? 🤔";
+      showScreen('gameMissing');
+      newMissingRound();
+    }
+
+    function newMissingRound() {
+      isLocked = false;
+      currentVoicePrompt = "Look at the top row! Who is missing below?";
+      document.getElementById('missingStatus').textContent = currentVoicePrompt;
+      speakText(currentVoicePrompt);
 
       const shuffled = [...EMOJIS].sort(() => 0.5 - Math.random());
-      currentItems = shuffled.slice(0, 3);
-      missingItem = currentItems[Math.floor(Math.random() * 3)];
+      missingRoundItems = shuffled.slice(0, 3);
+      targetMissing = missingRoundItems[Math.floor(Math.random() * 3)];
 
-      let row2Items = [...currentItems];
-      do {
-        row2Items.sort(() => 0.5 - Math.random());
-      } while (row2Items.every((item, i) => item === currentItems[i]));
+      let row2 = [...missingRoundItems];
+      do { row2.sort(() => 0.5 - Math.random()); } while (row2.every((v, i) => v === missingRoundItems[i]));
 
-      renderRows(row2Items);
-      playSound('prompt');
-    }
+      const r1 = document.getElementById('missingRow1');
+      const r2 = document.getElementById('missingRow2');
+      r1.innerHTML = ''; r2.innerHTML = '';
 
-    function renderRows(row2Items) {
-      const r1 = document.getElementById('row1');
-      const r2 = document.getElementById('row2');
-      r1.innerHTML = '';
-      r2.innerHTML = '';
-
-      currentItems.forEach(item => {
+      missingRoundItems.forEach(item => {
         const btn = document.createElement('button');
         btn.className = 'toddler-card clickable';
         btn.textContent = item;
-        btn.onclick = () => handleTap(btn, item);
+        btn.onclick = () => handleMissingTap(btn, item);
         r1.appendChild(btn);
       });
 
-      row2Items.forEach(item => {
+      row2.forEach(item => {
         const slot = document.createElement('div');
-        if (item === missingItem) {
+        if (item === targetMissing) {
           slot.className = 'toddler-card mystery-slot';
           slot.textContent = '❓';
-          mysterySlotElement = slot;
+          mysterySlotEl = slot;
         } else {
           slot.className = 'toddler-card';
           slot.textContent = item;
@@ -362,56 +492,245 @@
       });
     }
 
-    function handleTap(button, item) {
+    function handleMissingTap(btn, item) {
       if (isLocked) return;
-
-      if (item === missingItem) {
+      if (item === targetMissing) {
         isLocked = true;
-        button.classList.add('correct-pop');
-
-        if (mysterySlotElement) {
-          mysterySlotElement.textContent = missingItem;
-          mysterySlotElement.classList.remove('mystery-slot');
-          mysterySlotElement.classList.add('correct-pop');
+        btn.classList.add('correct-pop');
+        if (mysterySlotEl) {
+          mysterySlotEl.textContent = targetMissing;
+          mysterySlotEl.classList.remove('mystery-slot');
+          mysterySlotEl.classList.add('correct-pop');
         }
-
-        document.getElementById('statusMessage').textContent = 'Awesome! You found the missing friend! ⭐';
+        playChime(true);
         triggerConfetti();
-
-        playSound('correct', () => newRound());
+        document.getElementById('missingStatus').textContent = "Awesome! You found it! ⭐";
+        speakText("Awesome! You found the missing friend!", () => {
+          if (currentGame === 'missing') newMissingRound();
+        });
       } else {
-        button.classList.add('wrong-wobble');
-        document.getElementById('statusMessage').textContent = 'Oops, not that one! Look again! 😊';
-        playSound('wrong');
-
-        setTimeout(() => button.classList.remove('wrong-wobble'), 500);
+        btn.classList.add('wrong-wobble');
+        playChime(false);
+        document.getElementById('missingStatus').textContent = "Oops, not that one! Look again! 😊";
+        speakText("Oops, not that one! Look again!");
+        setTimeout(() => btn.classList.remove('wrong-wobble'), 500);
       }
     }
 
+    // --- GAME 2: ANIMAL SHADOWS ---
+    const ANIMALS = [
+      { emoji: '🐶', name: 'Puppy' }, { emoji: '🐱', name: 'Kitty' },
+      { emoji: '🦁', name: 'Lion' }, { emoji: '🐰', name: 'Bunny' },
+      { emoji: '🐻', name: 'Bear' }, { emoji: '🐼', name: 'Panda' },
+      { emoji: '🐸', name: 'Frog' }, { emoji: '🐵', name: 'Monkey' }
+    ];
+    let currentAnimal = null;
+
+    function startShadowGame() {
+      currentGame = 'shadow';
+      document.getElementById('screenTitle').textContent = "Animal Shadows 🐾";
+      showScreen('gameShadow');
+      newShadowRound();
+    }
+
+    function newShadowRound() {
+      isLocked = false;
+      const shuffled = [...ANIMALS].sort(() => 0.5 - Math.random());
+      currentAnimal = shuffled[0];
+      const choices = shuffled.slice(0, 3).sort(() => 0.5 - Math.random());
+
+      const target = document.getElementById('shadowTarget');
+      target.textContent = currentAnimal.emoji;
+      target.className = 'toddler-card shadow-item';
+
+      currentVoicePrompt = "Whose shadow is this? Pick the animal below!";
+      document.getElementById('shadowStatus').textContent = currentVoicePrompt;
+      speakText(currentVoicePrompt);
+
+      const optContainer = document.getElementById('shadowOptions');
+      optContainer.innerHTML = '';
+      choices.forEach(c => {
+        const btn = document.createElement('button');
+        btn.className = 'toddler-card clickable';
+        btn.textContent = c.emoji;
+        btn.onclick = () => handleShadowTap(btn, c);
+        optContainer.appendChild(btn);
+      });
+    }
+
+    function handleShadowTap(btn, choice) {
+      if (isLocked) return;
+      if (choice.emoji === currentAnimal.emoji) {
+        isLocked = true;
+        btn.classList.add('correct-pop');
+        const target = document.getElementById('shadowTarget');
+        target.classList.remove('shadow-item');
+        target.classList.add('correct-pop');
+        playChime(true);
+        triggerConfetti();
+        document.getElementById('shadowStatus').textContent = `Super! It's the ${currentAnimal.name}! ⭐`;
+        speakText(`Super! You found the ${currentAnimal.name}!`, () => {
+          if (currentGame === 'shadow') newShadowRound();
+        });
+      } else {
+        btn.classList.add('wrong-wobble');
+        playChime(false);
+        document.getElementById('shadowStatus').textContent = "Not that animal! Try another one! 😊";
+        speakText("Not that animal! Try another one!");
+        setTimeout(() => btn.classList.remove('wrong-wobble'), 500);
+      }
+    }
+
+    // --- GAME 3: COLOR SORTER ---
+    const COLOR_ITEMS = [
+      { emoji: '🍎', color: 'red' }, { emoji: '🍓', color: 'red' }, { emoji: '🚒', color: 'red' },
+      { emoji: '🍌', color: 'yellow' }, { emoji: '🍋', color: 'yellow' }, { emoji: '⭐', color: 'yellow' },
+      { emoji: '🍏', color: 'green' }, { emoji: '🥦', color: 'green' }, { emoji: '🐸', color: 'green' },
+      { emoji: '🫐', color: 'blue' }, { emoji: '🚙', color: 'blue' }, { emoji: '🐋', color: 'blue' }
+    ];
+    let currentColorItem = null;
+
+    function startColorGame() {
+      currentGame = 'color';
+      document.getElementById('screenTitle').textContent = "Color Sorter 🎨";
+      showScreen('gameColor');
+      newColorRound();
+    }
+
+    function newColorRound() {
+      isLocked = false;
+      currentColorItem = COLOR_ITEMS[Math.floor(Math.random() * COLOR_ITEMS.length)];
+      const card = document.getElementById('colorItemCard');
+      card.textContent = currentColorItem.emoji;
+      card.className = 'toddler-card';
+
+      currentVoicePrompt = "What color is this item? Tap its basket!";
+      document.getElementById('colorStatus').textContent = currentVoicePrompt;
+      speakText(currentVoicePrompt);
+    }
+
+    function handleColorTap(pickedColor) {
+      if (isLocked) return;
+      if (pickedColor === currentColorItem.color) {
+        isLocked = true;
+        document.getElementById('colorItemCard').classList.add('correct-pop');
+        playChime(true);
+        triggerConfetti();
+        document.getElementById('colorStatus').textContent = `Great job! It goes in the ${pickedColor} basket! ⭐`;
+        speakText(`Great job! It belongs to the ${pickedColor} basket!`, () => {
+          if (currentGame === 'color') newColorRound();
+        });
+      } else {
+        playChime(false);
+        document.getElementById('colorStatus').textContent = "Oops! Try another color basket! 😊";
+        speakText("Oops! Try another color basket!");
+      }
+    }
+
+    // --- GAME 4: WHO HID AWAY (PEEK-A-BOO TRAY) ---
+    let peekItems = [], hiddenItem = null;
+
+    function startPeekabooGame() {
+      currentGame = 'peekaboo';
+      document.getElementById('screenTitle').textContent = "Who Hid Away? 🙈";
+      showScreen('gamePeekaboo');
+      newPeekRound();
+    }
+
+    function newPeekRound() {
+      isLocked = false;
+      const choicesSec = document.getElementById('peekChoicesSection');
+      choicesSec.style.display = 'none';
+
+      const shuffled = [...EMOJIS].sort(() => 0.5 - Math.random());
+      peekItems = shuffled.slice(0, 3);
+      hiddenItem = peekItems[Math.floor(Math.random() * 3)];
+
+      const tray = document.getElementById('peekTray');
+      tray.innerHTML = '';
+      peekItems.forEach(item => {
+        const slot = document.createElement('div');
+        slot.className = 'toddler-card';
+        slot.textContent = item;
+        tray.appendChild(slot);
+      });
+
+      document.getElementById('peekTimerBadge').textContent = "Look carefully! ⏳";
+      currentVoicePrompt = "Look at the items! Someone is about to hide!";
+      document.getElementById('peekStatus').textContent = currentVoicePrompt;
+      speakText(currentVoicePrompt);
+
+      // Hide one item after 4 seconds
+      setTimeout(() => {
+        if (currentGame !== 'peekaboo') return;
+        tray.innerHTML = '';
+        peekItems.forEach(item => {
+          const slot = document.createElement('div');
+          if (item === hiddenItem) {
+            slot.className = 'toddler-card mystery-slot';
+            slot.textContent = '🙈';
+          } else {
+            slot.className = 'toddler-card';
+            slot.textContent = item;
+          }
+          tray.appendChild(slot);
+        });
+
+        document.getElementById('peekTimerBadge').textContent = "Who hid?";
+        currentVoicePrompt = "Peek-a-boo! Who hid away?";
+        document.getElementById('peekStatus').textContent = currentVoicePrompt;
+        speakText(currentVoicePrompt);
+
+        // Show choice buttons
+        choicesSec.style.display = 'block';
+        const choicesDiv = document.getElementById('peekChoices');
+        choicesDiv.innerHTML = '';
+        peekItems.sort(() => 0.5 - Math.random()).forEach(item => {
+          const btn = document.createElement('button');
+          btn.className = 'toddler-card clickable';
+          btn.textContent = item;
+          btn.onclick = () => handlePeekChoice(btn, item);
+          choicesDiv.appendChild(btn);
+        });
+      }, 4000);
+    }
+
+    function handlePeekChoice(btn, item) {
+      if (isLocked) return;
+      if (item === hiddenItem) {
+        isLocked = true;
+        btn.classList.add('correct-pop');
+        playChime(true);
+        triggerConfetti();
+        document.getElementById('peekStatus').textContent = "Yay! You found who was hiding! ⭐";
+        speakText("Yay! You found who was hiding!", () => {
+          if (currentGame === 'peekaboo') newPeekRound();
+        });
+      } else {
+        btn.classList.add('wrong-wobble');
+        playChime(false);
+        document.getElementById('peekStatus').textContent = "That friend is still here! Look again! 😊";
+        speakText("That friend is still here! Look again!");
+        setTimeout(() => btn.classList.remove('wrong-wobble'), 500);
+      }
+    }
+
+    // --- Star Confetti ---
     const canvas = document.getElementById('confettiCanvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+    window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
 
     function triggerConfetti() {
       particles = [];
       const colors = ['#F59E0B', '#10B981', '#6366F1', '#EC4899', '#3B82F6'];
-      for (let i = 0; i < 45; i++) {
+      for (let i = 0; i < 40; i++) {
         particles.push({
-          x: canvas.width / 2,
-          y: canvas.height / 2,
-          vx: (Math.random() - 0.5) * 14,
-          vy: (Math.random() - 0.7) * 16,
-          size: Math.random() * 12 + 6,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          rotation: Math.random() * 360,
-          alpha: 1
+          x: canvas.width / 2, y: canvas.height / 2,
+          vx: (Math.random() - 0.5) * 14, vy: (Math.random() - 0.7) * 16,
+          size: Math.random() * 12 + 6, color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360, alpha: 1
         });
       }
       renderConfetti();
@@ -420,17 +739,10 @@
     function renderConfetti() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.4;
-        p.alpha -= 0.015;
-        ctx.save();
-        ctx.globalAlpha = Math.max(p.alpha, 0);
-        ctx.fillStyle = p.color;
-        ctx.translate(p.x, p.y);
-        ctx.rotate((p.rotation * Math.PI) / 180);
-        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-        ctx.restore();
+        p.x += p.vx; p.y += p.vy; p.vy += 0.4; p.alpha -= 0.015;
+        ctx.save(); ctx.globalAlpha = Math.max(p.alpha, 0); ctx.fillStyle = p.color;
+        ctx.translate(p.x, p.y); ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size); ctx.restore();
       });
       particles = particles.filter(p => p.alpha > 0);
       if (particles.length > 0) requestAnimationFrame(renderConfetti);
